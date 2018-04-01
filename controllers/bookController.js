@@ -6,7 +6,13 @@ exports.index = function(req, res) {
 
 // Display list of all books.
 exports.book_list = function(req, res) {
-  res.send("NOT IMPLEMENTED: Book list");
+  Book.find({}, 'title author')
+    .populate('author')
+    .exec()
+    .then(list_books => {
+      res.render('booklist', {title: 'Book List', list_books });
+    })
+    .catch(err => next(err));
 };
 
 // Display detail page for a specific book.

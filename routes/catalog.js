@@ -5,7 +5,7 @@ const express = require('express'),
 const book_controller = require('../controllers/bookController'),
       author_controller = require('../controllers/authorController'),
       genre_controller = require('../controllers/genreController'),
-      bookinstance_controller = require('../controllers/bookinstanceController');
+      book_instance_controller = require('../controllers/bookinstanceController');
 
 //BOOK ROUTES ///
 
