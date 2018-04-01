@@ -10,6 +10,7 @@ exports.book_list = function(req, res) {
     .populate('author')
     .exec()
     .then(list_books => {
+      
       res.render('booklist', {title: 'Book List', list_books });
     })
     .catch(err => next(err));

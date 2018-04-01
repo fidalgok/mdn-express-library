@@ -22,12 +22,12 @@ const AuthorSchema = new Schema({
 });
 
 //virtual for authors full name
-AuthorSchema.virtual('name').get(()=>{
+AuthorSchema.virtual('name').get(function(){
     return `${this.family_name}, ${this.first_name}`; 
 });
 
 //virtual for author's url
-AuthorSchema.virtual('url').get(()=>{
+AuthorSchema.virtual('url').get(function(){
     return `/catalog/author/${this._id}`;
 });
 

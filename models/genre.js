@@ -12,7 +12,7 @@ const GenreSchema = new Schema({
 
 //virtual
 
-GenreSchema.virtual('url').get(()=>{
+GenreSchema.virtual('url').get(function(){
     return `/genre/${this._id}`
 });
 
