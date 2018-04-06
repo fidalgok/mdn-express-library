@@ -1,4 +1,5 @@
 var Book = require("../models/book");
+const Bookinstance = require("../models/bookInstance");
 
 exports.index = function(req, res) {
   res.send("NOT IMPLEMENTED: Site Home Page");
@@ -11,14 +12,32 @@ exports.book_list = function(req, res) {
     .exec()
     .then(list_books => {
       
-      res.render('booklist', {title: 'Book List', list_books });
+      res.render('booklist', {title: 'Title', list_books });
     })
     .catch(err => next(err));
 };
 
 // Display detail page for a specific book.
 exports.book_detail = function(req, res) {
-  res.send("NOT IMPLEMENTED: Book detail: " + req.params.id);
+  bookPromise = Book.findById(req.params.id)
+    .populate('author')
+    .populate('genre')
+    .exec();
+  bookinstancePromise = Bookinstance.find({book: req.params.id});
+
+  Promise.all([bookPromise, bookinstancePromise])
+    .then(([book, bookinstance]) => {
+      if(book == null){
+        //no results
+        var err = new Error("Book not found");
+        err.status = 404;
+        next(err);
+      }
+      res.render('book_detail', {title: "Book Detail", book, bookinstance});
+    })
+    .catch(err => {
+      next(err);
+    })
 };
 
 // Display book create form on GET.
